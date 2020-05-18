@@ -2,9 +2,10 @@
   "name": "v2",
   "container": {
     "image": "gcr.io/k80-exploration/tritonserver:19.12-py3",
+    "deployment_uri": "gs://model_url",
     "args": [
         "trtserver",
-        "--model-repository=/model_repository"
+        "--model-repository=$(AIP_STORAGE_URI)"
     ],
     "env": [
     ], 
