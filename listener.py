@@ -7,7 +7,7 @@ from tensorrtserver.api import grpc_service_pb2_grpc
 #import tensorrtserver.api.model_config_pb2 as model_config
 
 # Create gRPC stub for communicating with the server
-channel = grpc.insecure_channel('35.225.226.0:8001')
+channel = grpc.insecure_channel('127.0.0.1:8001')
 grpc_stub = grpc_service_pb2_grpc.GRPCServiceStub(channel)
 
 
