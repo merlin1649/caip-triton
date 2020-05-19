@@ -25,7 +25,7 @@ def predict(model, version):
     
 @app.route("/v1/models/<model>/versions/<version>", methods=["GET"])
 def health(model, version):
-    return flask.jsonify({})
+    return jsonify({})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
