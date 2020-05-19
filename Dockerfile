@@ -24,7 +24,8 @@ RUN apt update && \
 
 WORKDIR /opt/tensorrtserver/
 
-COPY listener.py /opt/tensorrtserver/
+COPY listener.py /opt/tensorrtserver/listener.py
 COPY caip_entrypoint.sh /opt/tensorrtserver/
+COPY grpc_gcp_caip_pb2.py /opt/tensorrtserver/
 
 ENTRYPOINT ["bash", "caip_entrypoint.sh"]
