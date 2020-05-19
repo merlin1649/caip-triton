@@ -14,7 +14,7 @@ grpc_stub = grpc_service_pb2_grpc.GRPCServiceStub(channel)
 app = Flask(__name__)
 
 @app.route("/v1/models/<model>/versions/<version>:predict", methods=["POST"])
-def predict():
+def predict(model, version):
     r = grpc_gcp_caip_pb2.CaipRequest.FromString(request.data)   
     if r.request_type==grpc_gcp_caip_pb2.TYPE_INFER_REQUEST:
         return grpc_stub.Infer(r.infer_request).SerializeToString()
