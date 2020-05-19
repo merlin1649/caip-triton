@@ -24,7 +24,7 @@ def predict():
         return 'Error: request_type not defined.'
     
 @app.route("/v1/models/<model>/versions/<version>", methods=["GET"])
-  def health(model, version):
+def health(model, version):
     return flask.jsonify({})
 
 if __name__ == '__main__':
