@@ -13,7 +13,7 @@ grpc_stub = grpc_service_pb2_grpc.GRPCServiceStub(channel)
 
 app = Flask(__name__)
 
-@app.route('/predict', methods=["POST"])
+@app.route("/v1/models/<model>/versions/<version>:predict", methods=["POST"])
 def predict():
     r = grpc_gcp_caip_pb2.CaipRequest.FromString(request.data)   
     if r.request_type==grpc_gcp_caip_pb2.TYPE_INFER_REQUEST:
@@ -22,6 +22,10 @@ def predict():
         return grpc_stub.Status(r.status_request).SerializeToString()
     else:
         return 'Error: request_type not defined.'
+    
+@app.route("/v1/models/<model>/versions/<version>", methods=["GET"])
+  def health(model, version):
+    return flask.jsonify({})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
