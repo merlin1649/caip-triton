@@ -20,6 +20,8 @@ def predict(model, version):
         return grpc_stub.Infer(r.infer_request).SerializeToString()
     elif r.request_type==grpc_gcp_caip_pb2.TYPE_STATUS_REQUEST:
         return grpc_stub.Status(r.status_request).SerializeToString()
+    elif r.request_type==grpc_gcp_caip_pb2.TYPE_TRACER:
+        return ("Your trace message was: " + r.trace_message)
     else:
         return 'Error: request_type not defined.'
     
