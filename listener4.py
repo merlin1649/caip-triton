@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import grpc
 #from tensorrtserver.api import api_pb2
 from tensorrtserver.api import grpc_service_pb2
@@ -14,7 +14,7 @@ grpc_stub = grpc_service_pb2_grpc.GRPCServiceStub(channel)
 app = Flask(__name__)
 
 @app.route("/v1/models/<model>/versions/<version>:predict", methods=["POST"])
-def predict():
+def predict(model, version):
     r = grpc_gcp_caip_pb2.CaipRequest.FromString(request.data)   
     if r.request_type==grpc_gcp_caip_pb2.TYPE_INFER_REQUEST:
         return grpc_stub.Infer(r.infer_request).SerializeToString()
@@ -24,8 +24,8 @@ def predict():
         return 'Error: request_type not defined.'
     
 @app.route("/v1/models/<model>/versions/<version>", methods=["GET"])
-  def health(model, version):
-    return flask.jsonify({})
+def health(model, version):
+    return jsonify({})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

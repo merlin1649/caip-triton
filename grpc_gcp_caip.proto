@@ -47,5 +47,10 @@ message CaipRequest
   //@@     Returns infer_request message.
   //@@
   InferRequest infer_request = 3;
-
+  //@@
+  //@@  .. cpp:var:: string trace_message
+  //@@
+  //@@     Returns string-type message for diagnostics.
+  //@@
+  string trace_message = 4;
 }
