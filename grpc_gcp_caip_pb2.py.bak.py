@@ -11,8 +11,17 @@ from google.protobuf import symbol_database as _symbol_database
 
 _sym_db = _symbol_database.Default()
 
+'''
+MANUAL EDIT!!!
 
-import grpc_service_pb2 as grpc__service__pb2
+Previous auto-generated import is:
+
+    import grpc_service_pb2 as grpc__service__pb2
+
+However, grpc_service_pb2 comes from tensorrtserver.api so the import fails.
+
+'''
+from tensorrtserver.api import grpc_service_pb2 as grpc__service__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -20,7 +29,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='nvidia.inferenceserver',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x13grpc_gcp_caip.proto\x12\x16nvidia.inferenceserver\x1a\x12grpc_service.proto\"\xdb\x01\n\x0b\x43\x61ipRequest\x12\x39\n\x0crequest_type\x18\x01 \x01(\x0e\x32#.nvidia.inferenceserver.RequestType\x12=\n\x0estatus_request\x18\x02 \x01(\x0b\x32%.nvidia.inferenceserver.StatusRequest\x12;\n\rinfer_request\x18\x03 \x01(\x0b\x32$.nvidia.inferenceserver.InferRequest\x12\x15\n\rtrace_message\x18\x04 \x01(\t*a\n\x0bRequestType\x12\x10\n\x0cTYPE_UNKNOWN\x10\x00\x12\x17\n\x13TYPE_STATUS_REQUEST\x10\x01\x12\x16\n\x12TYPE_INFER_REQUEST\x10\x02\x12\x0f\n\x0bTYPE_TRACER\x10\x03\x62\x06proto3'
+  serialized_pb=b'\n\x13grpc_gcp_caip.proto\x12\x16nvidia.inferenceserver\x1a\x12grpc_service.proto\"\xc4\x01\n\x0b\x43\x61ipRequest\x12\x39\n\x0crequest_type\x18\x01 \x01(\x0e\x32#.nvidia.inferenceserver.RequestType\x12=\n\x0estatus_request\x18\x02 \x01(\x0b\x32%.nvidia.inferenceserver.StatusRequest\x12;\n\rinfer_request\x18\x03 \x01(\x0b\x32$.nvidia.inferenceserver.InferRequest*P\n\x0bRequestType\x12\x10\n\x0cTYPE_UNKNOWN\x10\x00\x12\x17\n\x13TYPE_STATUS_REQUEST\x10\x01\x12\x16\n\x12TYPE_INFER_REQUEST\x10\x02\x62\x06proto3'
   ,
   dependencies=[grpc__service__pb2.DESCRIPTOR,])
 
@@ -42,15 +51,11 @@ _REQUESTTYPE = _descriptor.EnumDescriptor(
       name='TYPE_INFER_REQUEST', index=2, number=2,
       serialized_options=None,
       type=None),
-    _descriptor.EnumValueDescriptor(
-      name='TYPE_TRACER', index=3, number=3,
-      serialized_options=None,
-      type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=289,
-  serialized_end=386,
+  serialized_start=266,
+  serialized_end=346,
 )
 _sym_db.RegisterEnumDescriptor(_REQUESTTYPE)
 
@@ -58,7 +63,6 @@ RequestType = enum_type_wrapper.EnumTypeWrapper(_REQUESTTYPE)
 TYPE_UNKNOWN = 0
 TYPE_STATUS_REQUEST = 1
 TYPE_INFER_REQUEST = 2
-TYPE_TRACER = 3
 
 
 
@@ -90,13 +94,6 @@ _CAIPREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='trace_message', full_name='nvidia.inferenceserver.CaipRequest.trace_message', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -110,7 +107,7 @@ _CAIPREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=68,
-  serialized_end=287,
+  serialized_end=264,
 )
 
 _CAIPREQUEST.fields_by_name['request_type'].enum_type = _REQUESTTYPE

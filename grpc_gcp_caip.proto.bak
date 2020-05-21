@@ -19,10 +19,7 @@ enum RequestType {
     TYPE_STATUS_REQUEST = 1;
   
     //@@  .. cpp:enumerator:: RequestType::INFER_REQUEST = 2
-    TYPE_INFER_REQUEST = 2;  
-
-    //@@  .. cpp:enumerator:: RequestType::TYPE_TRACER = 2
-    TYPE_TRACER = 3;
+    TYPE_INFER_REQUEST = 2;
    }
 
 //@@
@@ -50,10 +47,5 @@ message CaipRequest
   //@@     Returns infer_request message.
   //@@
   InferRequest infer_request = 3;
-  //@@
-  //@@  .. cpp:var:: string trace_message
-  //@@
-  //@@     Returns string-type message for diagnostics.
-  //@@
-  string trace_message = 4;
+
 }
