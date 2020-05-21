@@ -11,9 +11,13 @@ from google.protobuf import symbol_database as _symbol_database
 
 _sym_db = _symbol_database.Default()
 
-
-import grpc_service_pb2 as grpc__service__pb2
-
+'''
+MANUAL EDIT!!!
+Previous auto-generated import is:
+    import grpc_service_pb2 as grpc__service__pb2
+However, grpc_service_pb2 comes from tensorrtserver.api so the import fails.
+'''
+from tensorrtserver.api import grpc_service_pb2 as grpc__service__pb2
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='grpc_gcp_caip.proto',
