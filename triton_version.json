@@ -4,8 +4,6 @@
   "container": {
     "image": "gcr.io/tsaikevin-inference/caip-triton:latest",
     "args": [
-        "trtserver",
-        "--model-repository=$(AIP_STORAGE_URI)"
     ],
     "env": [
     ], 
