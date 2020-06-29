@@ -250,8 +250,6 @@ def get_inference_request(inputs, request_id):
     infer_request['inputs'] = [
         this_input._get_tensor() for this_input in inputs
     ]
-    with open('simple.json', 'w') as output_file:
-        json.dump(infer_request, output_file)
     request_body = json.dumps(infer_request)
     json_size = len(request_body)
     binary_data = None
@@ -269,7 +267,7 @@ def get_inference_request(inputs, request_id):
             request_body.encode(), binary_data)
         return request_body, json_size
 
-    return request_body, None
+    return infer_request, request_body, None
 
 def preprocess(img, format, dtype, c, h, w, scaling, protocol):
     """
@@ -360,7 +358,9 @@ if __name__ == '__main__':
         inputs[0].set_data_from_numpy(input0_data, binary_data=False)
         inputs[1].set_data_from_numpy(input1_data, binary_data=False)    
         query_params = {'test_1': 1, 'test_2': 2 }
-        request_body, json_size = get_inference_request(inputs, '0')
+        infer_request, request_body, json_size = get_inference_request(inputs, '0')
         uri = "/v2/models/simple/infer"
+        with open('simple.json', 'w') as output_file:
+            json.dump(infer_request, output_file)
 
     
