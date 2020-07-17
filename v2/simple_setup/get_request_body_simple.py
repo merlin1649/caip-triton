@@ -26,12 +26,23 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 """
+
+USAGE:
+
+For json data (non-binary), data is generated from script:
+
+python get_request_body_simple.py -m simple
+
+For binary data, you can replace the mug.jpg file with your own jpg:
+
+python get_request_body_simple.py -m image -f mug.jpg
+
 curl -X GET -k -H "Content-Type: application/json" \
     -H "Authorization: Bearer `gcloud auth print-access-token`" \
     "${ENDPOINT}/projects/${PROJECT_NAME}/models/${MODEL_NAME}"
 
 curl \
--X POST localhost:9000/v2/models/simple/infer \
+-X POST localhost:8000/v2/models/simple/infer \
 -k -H "Content-Type: application/json" \
 -d @simple.json
 
@@ -46,17 +57,17 @@ curl \
 binary query below not working due to need of header:
 
 curl \
--X POST localhost:9000/v2/models/resnet50_netdef/infer \
+-X POST localhost:8000/v2/models/resnet50_netdef/infer \
 -k -H "Content-Type: application/octet-stream" \
 -H "Inference-Header-Content-Length: 138" \
---data-binary "@mug.dat"
+--data-binary "@simple.dat"
 
 curl \
 -X POST ${ENDPOINT}/projects/${PROJECT_NAME}/models/${MODEL_NAME}/versions/v3:predict \
 -k -H "Content-Type: application/octet-stream" \
 -H "Authorization: Bearer `gcloud auth print-access-token`" \
 -H "Inference-Header-Content-Length: 135" \
---data-binary "@mug.dat"
+--data-binary "@simple.dat"
 """
 
 from geventhttpclient import HTTPClient
@@ -345,7 +356,7 @@ if __name__ == '__main__':
         request_body, json_size = get_inference_request(image_inputs, '0')
         print("Add Header: Inference-Header-Content-Length: {}".format(json_size))
         uri = "/v2/models/resnet50_netdef/infer"
-        with open('mug.dat', 'wb') as output_file:
+        with open('simple.dat', 'wb') as output_file:
             output_file.write(request_body)
             output_file.close() 
     else:
