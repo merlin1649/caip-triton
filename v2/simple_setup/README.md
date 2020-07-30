@@ -18,7 +18,15 @@ notebooks.googleapis.com \
 compute.googleapis.com \
 ontainerregistry.googleapis.com \
 alpha-ml.googleapis.com
+```
+### Preparing the container
 
+We will make a copy of the Triton container image into gcr.io, whereAI Platform Custom Container Prediction will only pull from during Model Version setup.  The following steps will download the NVIDIA Triton Inference Server container to your VM, then upload it to gcr.io.
+```
+export CAIP_IMAGE=gcr.io/${PROJECT_ID}/tritonserver:20.06-py3
+docker pull nvcr.io/nvidia/tritonserver:20.06-py3
+docker tag nvcr.io/nvidia/tritonserver:20.06-py3 ${CAIP_IMAGE}
+docker push ${CONTAINER_IMAGE}
 ```
 ### Create an AI Platform Notebook instance
 
@@ -39,7 +47,7 @@ gcloud beta notebooks instances create $INSTANCE_NAME \
 
 Go to the Notebook [console](https://console.cloud.google.com/ai-platform/notebooks/instances?_ga=2.230420892.1299696707.1591948252-1008316514.1591948252).  When the Notebook server is ready, click the `OPEN UPYTERLAB` link.
 
-Finally, clone this repo into the Notebook instance.
+Finally, clone this repo into the Notebook instance.  For the rest of this lab, we will be using a guided notebook.
 
 
 
