@@ -19,7 +19,7 @@ gcloud services enable \
 notebooks.googleapis.com \
 compute.googleapis.com \
 containerregistry.googleapis.com \
-alpha-ml.googleapis.com \
+ml.googleapis.com \
 artifactregistry.googleapis.com
 ```
 
