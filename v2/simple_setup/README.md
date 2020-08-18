@@ -6,9 +6,11 @@ This repo walks through the process of setting up NVIDIA Triton Inference Server
 
 From the console, open an instance of Cloud Shell.
 
-Set project:
+Set project and repo parameters:
 ```
-export PROJECT_ID=[]
+export PROJECT_ID=[enter your Project ID]
+export REPOSITORY=caipcustom
+export REGION=us-central1
 gcloud config set project ${PROJECT_ID}
 ```
 Enable services:
@@ -17,13 +19,24 @@ gcloud services enable \
 notebooks.googleapis.com \
 compute.googleapis.com \
 containerregistry.googleapis.com \
-alpha-ml.googleapis.com
+alpha-ml.googleapis.com \
+artifactregistry.googleapis.com
 ```
+
+### Create artifact repo
+
+```
+gcloud beta artifacts repositories create ${REPOSITORY} \
+--repository-format=docker --location=${REGION}
+
+gcloud beta auth configure-docker us-central1-docker.pkg.dev --quiet
+```
+
 ### Preparing the container
 
-We will make a copy of the Triton container image into gcr.io, where AI Platform Custom Container Prediction will only pull from during Model Version setup.  The following steps will download the NVIDIA Triton Inference Server container to your VM, then upload it to gcr.io.
+We will make a copy of the Triton container image into teh artifact repo, where AI Platform Custom Container Prediction will only pull from during Model Version setup.  The following steps will download the NVIDIA Triton Inference Server container to your VM, then upload it to your repo.
 ```
-export CAIP_IMAGE=gcr.io/${PROJECT_ID}/tritonserver:20.06-py3
+export CAIP_IMAGE=${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY}/tritonserver:20.06-py3
 docker pull nvcr.io/nvidia/tritonserver:20.06-py3
 docker tag nvcr.io/nvidia/tritonserver:20.06-py3 ${CAIP_IMAGE}
 docker push ${CAIP_IMAGE}
