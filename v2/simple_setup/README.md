@@ -6,13 +6,6 @@ This repo walks through the process of setting up NVIDIA Triton Inference Server
 
 From the console, open an instance of Cloud Shell.
 
-Set project and repo parameters:
-```
-export PROJECT_ID=[enter your Project ID]
-export REPOSITORY=caipcustom
-export REGION=us-central1
-gcloud config set project ${PROJECT_ID}
-```
 Enable services:
 ```
 gcloud services enable \
@@ -23,24 +16,6 @@ ml.googleapis.com \
 artifactregistry.googleapis.com
 ```
 
-### Create artifact repo
-
-```
-gcloud beta artifacts repositories create ${REPOSITORY} \
---repository-format=docker --location=${REGION}
-
-gcloud beta auth configure-docker us-central1-docker.pkg.dev --quiet
-```
-
-### Preparing the container
-
-We will make a copy of the Triton container image into teh artifact repo, where AI Platform Custom Container Prediction will only pull from during Model Version setup.  The following steps will download the NVIDIA Triton Inference Server container to your VM, then upload it to your repo.
-```
-export CAIP_IMAGE=${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY}/tritonserver:20.06-py3
-docker pull nvcr.io/nvidia/tritonserver:20.06-py3
-docker tag nvcr.io/nvidia/tritonserver:20.06-py3 ${CAIP_IMAGE}
-docker push ${CAIP_IMAGE}
-```
 ### Create an AI Platform Notebook instance
 
 In Cloud Shell, execute the following commands:
@@ -59,6 +34,10 @@ gcloud beta notebooks instances create $INSTANCE_NAME \
 (Optional) Detailed setup instructions can be found [here](https://cloud.google.com/ai-platform/notebooks/docs/create-new).
 
 Go to the Notebook [console](https://console.cloud.google.com/ai-platform/notebooks/instances?_ga=2.230420892.1299696707.1591948252-1008316514.1591948252).  When the Notebook server is ready, click the `OPEN JUPYTERLAB` link.
+
+In the `Launcher` tab, click on `Terminal` in the `Other` group.
+
+Log into Google Cloud: `gcloud auth login`
 
 Finally, clone this repo into the Notebook instance.  For the rest of this lab, we will be using a guided notebook.
 
